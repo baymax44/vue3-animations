@@ -28,16 +28,26 @@ export default {
 </script>
 
 <style>
-.toast-enter-from {
-  opacity: 0;
-  transform: translateY(-60px);
+.toast-enter-active {
+  animation: wobble 0.5s ease;
 }
-.toast-enter-active,
 .toast-leave-active {
   transition: all 1s ease;
 }
 .toast-leave-to {
-  opacity: 0;
   transform: translateY(-60px);
+}
+.toast-leave-active {
+  transition: all 1s ease;
+}
+
+@keyframes wobble {
+  0% { transform: translateY(-60px); opacity: 0; }
+  50% { transform: translateY(0); opacity: 1; }
+  60% { transform: translateX(8px); }
+  70% { transform: translateX(-8px); }
+  80% { transform: translateX(4px); }
+  90% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
 }
 </style>

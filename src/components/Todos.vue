@@ -102,6 +102,7 @@ export default {
   }
   .list-leave-active {
     transition: all 0.4 ease;
+    position: absolute;
   }
 
   .list-move {

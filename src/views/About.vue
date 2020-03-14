@@ -2,15 +2,11 @@
   <div class="about">
     <transition
       appear
-      name="fade"
       @before-enter="beforeEnter"
       @enter="enter"
       @after-enter="afterEnter"
-      @before-leave="beforeLeave"
-      @leave="leave"
-      @after-leave="afterLeave"
     >
-      <h1 v-if="showTitle">About</h1>
+      <h1>About</h1>
     </transition>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum aperiam officia possimus delectus inventore quod quisquam culpa voluptas iusto, quae maiores quo dolorum, corporis laboriosam a dolore consequatur assumenda nam!</p>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum aperiam officia possimus delectus inventore quod quisquam culpa voluptas iusto, quae maiores quo dolorum, corporis laboriosam a dolore consequatur assumenda nam!</p>
@@ -20,31 +16,29 @@
 
 <script>
 import { ref } from "vue"
+import gsap from "gsap"
 
 export default {
   setup() {
-    const showTitle = ref(true)
-
-    const beforeEnter = () => {
+    const beforeEnter = (el) => {
       console.log("before enter")
+      el.style.transform = "translateY(-60px)"
+      el.style.opacity = 0
     }
-    const enter = () => {
-      
+    const enter = (el, done) => {
+      gsap.to(el, {
+        duration: 1,
+        y: 0,
+        opacity: 1,
+        ease: "bounce.out",
+        onComplete: done
+      })
     }
-    const afterEnter = () => {
-      
-    }
-    const beforeLeave = () => {
-      
-    }
-    const leave = () => {
-      
-    }
-    const afterLeave = () => {
-      
+    const afterEnter = (el) => {
+      console.log("after enter")
     }
 
-    return { showTitle, beforeEnter, enter, afterEnter, beforeLeave, leave, afterLeave }
+    return { beforeEnter, enter, afterEnter }
   }
 }
 </script>
@@ -53,14 +47,5 @@ export default {
   .about {
     max-width: 600px;
     margin: 20px auto;
-  }
-
-  .fade-enter-from,
-  .fade-leave-to {
-    opacity: 0;
-  }
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 3s ease;
   }
 </style>
